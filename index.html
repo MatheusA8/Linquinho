@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feliz Dia dos Namorados ❤️</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@400;700&display=swap');
+
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      position: relative;
+      cursor: default;
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      max-width: 600px;
+      padding: 40px 30px;
+      margin: 100px auto;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    h1 {
+      font-family: 'Sacramento', cursive;
+      font-size: 4rem;
+      margin-bottom: 15px;
+      animation: fadeInDown 2s ease forwards;
+      transition: color 0.6s ease;
+    }
+
+    h1.animate {
+      animation: pulse 1s infinite alternate;
+      color: #ffcee4;
+      text-shadow: 0 0 20px #ff88a5, 0 0 40px #ff88a5;
+      cursor: pointer;
+    }
+
+    p {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      animation: fadeInUp 2.5s ease forwards;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: red;
+      transform: rotate(-45deg);
+      animation: floatUp linear forwards;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -12.5px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: 12.5px;
+    }
+
+    .heart.small {
+      width: 15px;
+      height: 15px;
+    }
+
+    .heart.small::before,
+    .heart.small::after {
+      width: 15px;
+      height: 15px;
+      top: -7.5px;
+    }
+
+    .heart.small::after {
+      left: 7.5px;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(-45deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-200px) rotate(-45deg) scale(1.5);
+      }
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1) translateY(0);
+        color: #fff;
+        text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d;
+      }
+      100% {
+        transform: scale(1.1) translateY(-5px);
+        color: #ffcee4;
+        text-shadow: 0 0 20px #ff88a5, 0 0 40px #ff88a5;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Feliz Dia dos Namorados ❤️</h1>
+  <p>
+    Que o amor que vocês compartilham floresça a cada dia, enchendo seus corações de alegria, cumplicidade e paixão. <br /><br />
+    Que cada momento juntos seja inesquecível e que o amor seja sempre a luz que guia o caminho de vocês. <br /><br />
+    Te amo, hoje e sempre!
+  </p>
+</div>
+
+<div class="hearts" id="heartsContainer"></div>
+
+<script>
+  const heartsContainer = document.getElementById('heartsContainer');
+  const colors = ['#FF4D6D', '#FF88A5', '#FFC1D3', '#FFF0F5', '#ff0000'];
+
+  // Corações subindo automaticamente
+  function createFloatingHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    const duration = 3 + Math.random() * 2;
+    heart.style.animationDuration = duration + 's';
+    heart.style.background = 'red';
+    heartsContainer.appendChild(heart);
+    setTimeout(() => heart.remove(), duration * 1000);
+  }
+
+  setInterval(createFloatingHeart, 300);
+
+  // Corações saindo do cursor ao mover
+  document.addEventListener('mousemove', e => {
+    const heart = document.createElement('div');
+    heart.classList.add('heart', 'small');
+    heart.style.left = (e.clientX - 10) + 'px';
+    heart.style.top = (e.clientY - 10) + 'px';
+
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    heart.style.background = color;
+
+    const duration = 2 + Math.random() * 1.5;
+    heart.style.animationDuration = duration + 's';
+
+    heartsContainer.appendChild(heart);
+    setTimeout(() => heart.remove(), duration * 1000);
+  });
+
+  // Corações maiores ao clicar
+  document.addEventListener('click', e => {
+    for (let i = 0; i < 8; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      const size = 20 + Math.random() * 20;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      heart.style.left = (e.clientX + (Math.random() - 0.5) * 100) + 'px';
+      heart.style.top = (e.clientY + (Math.random() - 0.5) * 100) + 'px';
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      heart.style.background = color;
+      const duration = 3 + Math.random() * 2;
+      heart.style.animationDuration = duration + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), duration * 1000);
+    }
+  });
+
+  // Título animado com hover suave (sem piscar)
+  const title = document.querySelector('h1');
+  title.addEventListener('mouseenter', () => {
+    title.classList.add('animate');
+  });
+  title.addEventListener('mouseleave', () => {
+    title.classList.remove('animate');
+  });
+</script>
+
+</body>
+</html>
